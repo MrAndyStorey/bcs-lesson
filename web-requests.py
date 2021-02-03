@@ -22,6 +22,7 @@ def serverstatus(url):
 print(serverstatus(exampleURL))
 print(serverstatus(exampleURL + "xxxxxxxxx"))
 
+#Example 2
 def titleofpage(url):
   resp = req.get(url)
   if resp.status_code ==200:
@@ -37,6 +38,7 @@ def titleofpage(url):
 
 print(titleofpage(exampleURL))
 
+#Example 2 - Extension
 def titleofpageREGEX(url):
   resp = req.get(url)
   if resp.status_code ==200:
