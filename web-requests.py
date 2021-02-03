@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 import requests as req
+import re as regex
 
-# Regex Pattern will return full match including the html tags and group 1 () as the contents
-regex_pattern = r"\<title\>(.+?)\<\/title\>"
 
 # URL to check - ideally the school URL to ensure a suitable response
 exampleURL = "https://httpd.apache.org/"
@@ -23,7 +22,6 @@ def serverstatus(url):
 print(serverstatus(exampleURL))
 print(serverstatus(exampleURL + "xxxxxxxxx"))
 
-
 def titleofpage(url):
   resp = req.get(url)
   if resp.status_code ==200:
@@ -38,4 +36,18 @@ def titleofpage(url):
       return "{} returned an error {}".format(url, resp.status_code)
 
 print(titleofpage(exampleURL))
+
+def titleofpageREGEX(url):
+  resp = req.get(url)
+  if resp.status_code ==200:
+      # Regex Pattern will return full match including the html tags and group 1 () as the contents
+      regex_pattern = r"\<title\>(.+?)\<\/title\>"
+      result = regex.search(regex_pattern, resp.text)
+      if result is None:
+          return "<title> tag not found."
+      return "{}".format(result[1])
+  else:
+      return "{} returned an error {}".format(url, resp.status_code)
+
+print(titleofpageREGEX(exampleURL))
 
